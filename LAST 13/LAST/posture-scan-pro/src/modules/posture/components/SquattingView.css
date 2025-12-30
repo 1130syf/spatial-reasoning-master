@@ -1,0 +1,105 @@
+.squatting-view-new {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+}
+
+.video-area {
+  flex-grow: 1;
+  position: relative;
+  min-height: 0;
+}
+
+.webcam-feed, .overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay-canvas {
+  z-index: 5;
+}
+
+/* New Console Area for Squatting */
+.console-area-squat {
+  flex-shrink: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  border-top: 1px solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  gap: 24px;
+  color: #111827;
+}
+
+.main-stats, .feedback-console, .report-console {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feedback-console {
+  text-align: center;
+}
+
+.report-console {
+  align-items: flex-start;
+}
+
+.main-stats .stat-item .stat-value {
+  font-size: 2.5rem;
+  color: #4f46e5;
+}
+
+.main-stats .stat-item .stat-label {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.report-card {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  border: 1px solid #e5e7eb;
+}
+
+.report-card h4 { margin: 0 0 8px 0; }
+.report-card ul { margin: 0; padding-left: 20px; }
+
+.guidance-text {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.guidance-initializing { color: #6366f1; }
+.guidance-idle { color: #22c55e; }
+.guidance-squatting { color: #3b82f6; }
+.guidance-analyzing { color: #f59e0b; }
+
+/* End session button */
+.end-session-button {
+  margin-top: 16px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.end-session-button:hover {
+  background-color: #dc2626;
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}

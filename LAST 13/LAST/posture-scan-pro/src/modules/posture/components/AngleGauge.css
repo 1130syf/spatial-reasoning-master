@@ -1,0 +1,154 @@
+/* --- Angle Gauge Styles --- */
+.gauge-container {
+  width: 100%;
+  height: 150px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  background-color: #ffffff; /* Ensure it has a background */
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.gauge-background, .gauge-fill {
+  position: absolute;
+  width: 100%;
+  height: 200%; /* Makes it a full circle, then clip with overflow */
+  top: -50%;
+  border-radius: 100% 100% 0 0; /* Creates the half-circle shape */
+  transform-origin: bottom center;
+  overflow: hidden; /* Hide the bottom half */
+}
+
+.gauge-background {
+  background: #e5e7eb; /* Light grey background for the gauge */
+}
+
+.gauge-fill {
+  background: linear-gradient(to right, #818cf8, #4f46e5); /* Blue gradient for the fill */
+  transition: transform 0.3s ease, background 0.3s ease; /* Smooth rotation and color transition */
+}
+
+.gauge-fill--dynamic {
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.gauge-cover {
+  width: 80%;
+  height: 160%;
+  background: #ffffff; /* White cover to hide the inner part of the gauge */
+  position: absolute;
+  top: -30%;
+  border-radius: 100% 100% 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.gauge-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.gauge-label {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+/* 角度状态颜色编码 */
+.gauge-value--good {
+  color: #10b981 !important;
+  font-weight: 700;
+}
+
+.gauge-value--warning {
+  color: #f59e0b !important;
+  font-weight: 700;
+  animation: gauge-pulse-warning 2s infinite;
+}
+
+.gauge-value--bad {
+  color: #ef4444 !important;
+  font-weight: 700;
+  animation: gauge-pulse-danger 1.5s infinite;
+}
+
+/* 状态指示器 */
+.gauge-status-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.gauge-status--good {
+  background-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.gauge-status--warning {
+  background-color: #f59e0b;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+  animation: status-pulse-warning 2s infinite;
+}
+
+.gauge-status--bad {
+  background-color: #ef4444;
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  animation: status-pulse-danger 1.5s infinite;
+}
+
+/* 仪表盘脉冲动画 */
+@keyframes gauge-pulse-warning {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes gauge-pulse-danger {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+/* 状态指示器脉冲动画 */
+@keyframes status-pulse-warning {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.8);
+  }
+}
+
+@keyframes status-pulse-danger {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.8);
+  }
+}

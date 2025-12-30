@@ -1,0 +1,84 @@
+/* src/modules/patient/PatientList.css */
+.patient-list-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.patient-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.patient-list-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-medium);
+  color: var(--text-color);
+}
+
+.sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-medium);
+  color: var(--text-color);
+}
+
+.patient-list-table {
+  background-color: var(--bg-medium);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.patient-list-header-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr;
+  padding: 16px;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 600;
+}
+
+.patient-list-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1fr;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.patient-list-row:last-child {
+  border-bottom: none;
+}
+
+.patient-list-row:hover {
+  background-color: rgba(10, 196, 97, 0.05);
+}
+
+.no-results {
+  padding: 40px;
+  text-align: center;
+  color: #888;
+}

@@ -1,0 +1,413 @@
+.spinal-curvature-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  background-color: #f4f7f9;
+}
+
+/* 用户信息栏 */
+.patient-info-bar {
+  background: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.patient-name {
+  font-weight: 600;
+  color: #4f46e5;
+  font-size: 16px;
+}
+
+.change-patient-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.change-patient-btn:hover {
+  background: #5a6268;
+}
+
+/* 弹窗样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+  margin: 0 0 16px 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.modal-content p {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.patient-list {
+  margin-bottom: 20px;
+}
+
+.patient-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.patient-item:hover {
+  background: #f8fafc;
+  border-color: #4f46e5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.patient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.patient-info strong {
+  font-size: 16px;
+  color: #333;
+}
+
+.patient-details {
+  font-size: 14px;
+  color: #666;
+}
+
+.patient-arrow {
+  font-size: 18px;
+  color: #4f46e5;
+  font-weight: bold;
+}
+
+.no-patients {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.no-patients p {
+  margin: 8px 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.modal-btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.modal-btn-secondary:hover {
+  background: #5a6268;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  min-height: 0;
+}
+
+.capture-area {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.report-area {
+  flex: 1;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.page-title, .report-title {
+  color: #333;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  background-color: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.webcam-feed, .overlay-canvas, .video-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-canvas {
+  transform: scaleX(-1); /* Mirror the canvas to match the webcam feed */
+}
+
+.video-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.control-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s;
+}
+
+.control-btn.start {
+  background-color: #28a745;
+  color: white;
+}
+
+.control-btn.start:hover {
+  background-color: #218838;
+}
+
+.control-btn.stop {
+  background-color: #dc3545;
+  color: white;
+}
+
+.control-btn.stop:hover {
+  background-color: #c82333;
+}
+
+.control-btn.analyze {
+  background-color: #007bff;
+  color: white;
+}
+
+.control-btn.analyze:hover {
+  background-color: #0069d9;
+}
+
+.control-btn.save {
+  background-color: #28a745;
+  color: white;
+}
+
+.control-btn.save:hover {
+  background-color: #218838;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.report-content, .report-placeholder {
+  padding: 10px;
+}
+
+.report-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* 脊柱弯曲度颜色编码样式 */
+.result-card {
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.result-card.status-good {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ecfdf5, #ffffff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.result-card.status-warning {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb, #ffffff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 12px rgba(245, 158, 11, 0.15);
+  animation: result-card-pulse-warning 2s infinite;
+}
+
+.result-card.status-bad {
+  border-color: #ef4444;
+  background: linear-gradient(135deg, #fef2f2, #ffffff);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 12px rgba(239, 68, 68, 0.15);
+  animation: result-card-pulse-danger 1.5s infinite;
+}
+
+.angle-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.angle-value {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.angle-label {
+  font-size: 1rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+
+.measurements-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.measurement-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.measurement-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.measurement-label {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.assessment-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.assessment-icon {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.assessment-text {
+  line-height: 1.4;
+}
+
+/* 结果卡片脉冲动画 */
+@keyframes result-card-pulse-warning {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 12px rgba(245, 158, 11, 0.15);
+  }
+  50% {
+    transform: scale(1.01);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 20px rgba(245, 158, 11, 0.25);
+  }
+}
+
+@keyframes result-card-pulse-danger {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 12px rgba(239, 68, 68, 0.15);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 0 24px rgba(239, 68, 68, 0.3);
+  }
+}

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostureScan Pro - 摄像头故障排除工具</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: #f8f9ff;
+            border-radius: 8px;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+        }
+        #cameraTest {
+            width: 640px;
+            max-width: 100%;
+            height: 480px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 20px auto;
+            display: block;
+            background: #f7fafc;
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .solutions {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .solutions h4 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+        .solutions ol {
+            padding-left: 20px;
+        }
+        .solutions li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        #results {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 PostureScan Pro 摄像头诊断工具</h1>
+
+        <div class="section">
+            <h3>步骤 1: 浏览器权限检查</h3>
+            <p>点击下方按钮检查并请求摄像头权限：</p>
+            <button onclick="checkCameraPermission()">检查摄像头权限</button>
+            <button onclick="requestCameraPermission()">请求摄像头权限</button>
+            <div id="permissionStatus"></div>
+        </div>
+
+        <div class="section">
+            <h3>步骤 2: 摄像头设备检测</h3>
+            <p>检测可用的摄像头设备：</p>
+            <button onclick="enumerateDevices()">列出摄像头设备</button>
+            <div id="deviceList"></div>
+        </div>
+
+        <div class="section">
+            <h3>步骤 3: 摄像头功能测试</h3>
+            <p>测试摄像头是否正常工作：</p>
+            <button onclick="startCameraTest()">开始摄像头测试</button>
+            <button onclick="stopCameraTest()">停止摄像头测试</button>
+            <video id="cameraTest" autoplay muted></video>
+            <div id="testStatus"></div>
+        </div>
+
+        <div class="section">
+            <h3>步骤 4: 浏览器兼容性检查</h3>
+            <button onclick="checkBrowserCompatibility()">检查浏览器兼容性</button>
+            <div id="browserInfo"></div>
+        </div>
+
+        <div class="section">
+            <h3>诊断结果</h3>
+            <div id="results"></div>
+        </div>
+
+        <div class="solutions">
+            <h4>🔧 常见解决方案：</h4>
+            <ol>
+                <li><strong>浏览器权限问题：</strong> 确保在浏览器地址栏左侧点击摄像头图标，选择"允许"使用摄像头</li>
+                <li><strong>HTTPS协议：</strong> 确保使用 https:// 访问应用，本地开发使用 http://localhost 也可以</li>
+                <li><strong>浏览器兼容性：</strong> 推荐使用 Chrome、Firefox 或 Edge 浏览器的最新版本</li>
+                <li><strong>设备占用：</strong> 检查是否有其他应用正在使用摄像头（如Zoom、Skype等）</li>
+                <li><strong>防火墙设置：</strong> 确保防火墙没有阻止摄像头访问</li>
+                <li><strong>硬件检查：</strong> 确认摄像头硬件正常工作，设备管理器中无错误</li>
+                <li><strong>隐私设置：</strong> Windows/macOS 隐私设置中允许应用访问摄像头</li>
+            </ol>
+        </div>
+
+        <div class="solutions">
+            <h4>💻 代码修复建议：</h4>
+            <p>如果以上检查都正常，但PostureScan Pro中摄像头仍黑屏，可以尝试以下代码修改：</p>
+
+            <h5>1. 修改摄像头配置（在ExerciseAnalysisPage.js中）：</h5>
+            <div class="code-block">
+const camera = new cam.Camera(webcamRef.current.video, {
+  onFrame: async () => {
+    if (webcamRef.current?.video && poseRef.current) {
+      try {
+        await poseRef.current.send({ image: webcamRef.current.video });
+      } catch (error) {
+        console.error('Pose detection error:', error);
+      }
+    }
+  },
+  width: 640,  // 降低分辨率
+  height: 480,
+  facingMode: 'user',  // 明确指定前置摄像头
+});
+            </div>
+
+            <h5>2. 添加摄像头约束检查：</h5>
+            <div class="code-block">
+async function initCamera() {
+  try {
+    const constraints = {
+      video: {
+        width: { ideal: 640 },
+        height: { ideal: 480 },
+        facingMode: 'user',
+        deviceId: selectedCameraId
+      }
+    };
+
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    webcamRef.current.video.srcObject = stream;
+    return true;
+  } catch (error) {
+    console.error('Camera initialization failed:', error);
+    return false;
+  }
+}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stream = null;
+        let diagnostics = [];
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            diagnostics.push(`[${timestamp}] ${type.toUpperCase()}: ${message}`);
+            document.getElementById('results').textContent = diagnostics.join('\n');
+        }
+
+        async function checkCameraPermission() {
+            try {
+                const permission = await navigator.permissions.query({ name: 'camera' });
+                const status = document.getElementById('permissionStatus');
+
+                if (permission.state === 'granted') {
+                    status.innerHTML = '<div class="success">✅ 摄像头权限已授予</div>';
+                    log('摄像头权限已授予');
+                } else if (permission.state === 'prompt') {
+                    status.innerHTML = '<div class="warning">⚠️ 需要请求摄像头权限</div>';
+                    log('需要请求摄像头权限', 'warning');
+                } else if (permission.state === 'denied') {
+                    status.innerHTML = '<div class="error">❌ 摄像头权限被拒绝</div>';
+                    log('摄像头权限被拒绝', 'error');
+                }
+
+                permission.onchange = () => checkCameraPermission();
+            } catch (error) {
+                document.getElementById('permissionStatus').innerHTML =
+                    '<div class="info">ℹ️ 该浏览器不支持权限API</div>';
+                log('权限API不支持: ' + error.message, 'warning');
+            }
+        }
+
+        async function requestCameraPermission() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 640 },
+                        height: { ideal: 480 }
+                    }
+                });
+
+                document.getElementById('permissionStatus').innerHTML =
+                    '<div class="success">✅ 摄像头权限请求成功</div>';
+                log('摄像头权限请求成功');
+
+                // 关闭测试流
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            } catch (error) {
+                const status = document.getElementById('permissionStatus');
+                status.innerHTML = `<div class="error">❌ 摄像头权限请求失败: ${error.message}</div>`;
+                log('摄像头权限请求失败: ' + error.message, 'error');
+
+                // 提供具体错误解决方案
+                if (error.name === 'NotAllowedError') {
+                    log('解决方案: 在浏览器地址栏左侧点击摄像头图标，选择"允许"', 'info');
+                } else if (error.name === 'NotFoundError') {
+                    log('解决方案: 检查摄像头是否正确连接', 'info');
+                } else if (error.name === 'NotReadableError') {
+                    log('解决方案: 摄像头可能被其他应用占用', 'info');
+                }
+            }
+        }
+
+        async function enumerateDevices() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                const deviceList = document.getElementById('deviceList');
+
+                if (videoDevices.length === 0) {
+                    deviceList.innerHTML = '<div class="error">❌ 未找到摄像头设备</div>';
+                    log('未找到摄像头设备', 'error');
+                } else {
+                    let html = `<div class="success">✅ 找到 ${videoDevices.length} 个摄像头设备:</div>`;
+                    videoDevices.forEach((device, index) => {
+                        html += `<div class="info">摄像头 ${index + 1}: ${device.label || '未命名设备'} (ID: ${device.deviceId})</div>`;
+                        log(`摄像头 ${index + 1}: ${device.label || '未命名设备'}`);
+                    });
+                    deviceList.innerHTML = html;
+                }
+            } catch (error) {
+                document.getElementById('deviceList').innerHTML =
+                    `<div class="error">❌ 设备枚举失败: ${error.message}</div>`;
+                log('设备枚举失败: ' + error.message, 'error');
+            }
+        }
+
+        async function startCameraTest() {
+            const video = document.getElementById('cameraTest');
+            const status = document.getElementById('testStatus');
+
+            try {
+                // 首先停止现有流
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+
+                // 获取新的摄像头流
+                const constraints = {
+                    video: {
+                        width: { ideal: 640, max: 1280 },
+                        height: { ideal: 480, max: 720 },
+                        facingMode: 'user'
+                    }
+                };
+
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = stream;
+
+                status.innerHTML = '<div class="success">✅ 摄像头测试中... 如果能看到画面，说明摄像头工作正常</div>';
+                log('摄像头测试开始');
+
+                // 检查视频流状态
+                video.onloadedmetadata = () => {
+                    log(`视频流信息: ${video.videoWidth}x${video.videoHeight}`);
+                };
+
+                video.onerror = (error) => {
+                    status.innerHTML = '<div class="error">❌ 视频播放错误</div>';
+                    log('视频播放错误: ' + error, 'error');
+                };
+
+            } catch (error) {
+                status.innerHTML = `<div class="error">❌ 摄像头测试失败: ${error.message}</div>`;
+                log('摄像头测试失败: ' + error.message, 'error');
+            }
+        }
+
+        function stopCameraTest() {
+            const video = document.getElementById('cameraTest');
+            const status = document.getElementById('testStatus');
+
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+                video.srcObject = null;
+
+                status.innerHTML = '<div class="info">ℹ️ 摄像头测试已停止</div>';
+                log('摄像头测试停止');
+            } else {
+                status.innerHTML = '<div class="warning">⚠️ 摄像头未运行</div>';
+            }
+        }
+
+        function checkBrowserCompatibility() {
+            const info = document.getElementById('browserInfo');
+            let html = '';
+            let issues = [];
+
+            // 检查getUserMedia支持
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                html += '<div class="success">✅ 支持 getUserMedia API</div>';
+                log('getUserMedia API: 支持');
+            } else {
+                html += '<div class="error">❌ 不支持 getUserMedia API</div>';
+                log('getUserMedia API: 不支持', 'error');
+                issues.push('浏览器不支持摄像头API');
+            }
+
+            // 检查HTTPS
+            const isSecure = location.protocol === 'https:' || location.hostname === 'localhost';
+            if (isSecure) {
+                html += '<div class="success">✅ 安全连接 (HTTPS/Localhost)</div>';
+                log('安全连接: ' + location.protocol);
+            } else {
+                html += '<div class="warning">⚠️ 非安全连接，摄像头可能无法工作</div>';
+                log('安全连接: 非HTTPS连接', 'warning');
+                issues.push('需要HTTPS或localhost');
+            }
+
+            // 浏览器信息
+            const browserInfo = {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform
+            };
+
+            html += '<div class="info">浏览器: ' + browserInfo.userAgent + '</div>';
+            log('浏览器: ' + browserInfo.userAgent);
+
+            // 检查是否为支持的浏览器
+            const supportedBrowsers = ['Chrome', 'Firefox', 'Edge', 'Safari'];
+            const isSupported = supportedBrowsers.some(browser =>
+                browserInfo.userAgent.includes(browser)
+            );
+
+            if (isSupported) {
+                html += '<div class="success">✅ 受支持的浏览器</div>';
+                log('浏览器兼容性: 支持');
+            } else {
+                html += '<div class="warning">⚠️ 可能不支持的浏览器</div>';
+                log('浏览器兼容性: 可能不支持', 'warning');
+                issues.push('推荐使用Chrome、Firefox、Edge或Safari');
+            }
+
+            if (issues.length > 0) {
+                html += '<div class="error">发现问题: ' + issues.join(', ') + '</div>';
+            }
+
+            info.innerHTML = html;
+        }
+
+        // 页面加载时自动运行一些检查
+        window.addEventListener('load', () => {
+            log('摄像头诊断工具已加载');
+            checkBrowserCompatibility();
+            log('请按照步骤依次测试各项功能');
+        });
+    </script>
+</body>
+</html>

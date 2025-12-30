@@ -1,0 +1,339 @@
+/* Reusing styles from Dashboard.css for consistency */
+@import './Dashboard.css';
+
+/* 报告标签页 */
+.reports-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.tab-button.active {
+  color: #3b82f6;
+  background: #eff6ff;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #3b82f6;
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.reports-table th,
+.reports-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.reports-table thead th {
+  font-weight: 600;
+  color: #4b5563;
+  background-color: #f9fafb;
+}
+
+.reports-table tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+.reports-table .empty-state {
+  text-align: center;
+  padding: 48px;
+  color: #6b7280;
+}
+
+/* 评估类型标签样式 */
+.type-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.type-badge.type-静态体态评估,
+.type-badge.type-posture {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.type-badge.type-深蹲训练,
+.type-badge.type-squat {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.type-badge.type-二头弯举训练,
+.type-badge.type-bicep-curl {
+  background-color: #fce7f3;
+  color: #be185d;
+}
+
+.type-badge.type-脊柱曲率检测,
+.type-badge.type-spinal {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+/* 运动报告特定样式 */
+.exercise-report-item {
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.exercise-report-item:hover {
+  transform: translateX(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-report-item.valid-high-success {
+  border-left-color: #10b981;
+}
+
+.exercise-report-item.valid-medium-success {
+  border-left-color: #f59e0b;
+}
+
+.exercise-report-item.valid-low-success {
+  border-left-color: #ef4444;
+}
+
+/* 得分徽章 */
+.score-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 45px;
+  text-align: center;
+}
+
+.score-badge.excellent {
+  background-color: #dcfce7;
+  color: #14532d;
+}
+
+.score-badge.good {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.score-badge.needs-improvement {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* 成功率指示器 */
+.success-rate-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-rate-bar {
+  width: 60px;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.success-rate-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.success-rate-fill.high {
+  background-color: #10b981;
+}
+
+.success-rate-fill.medium {
+  background-color: #f59e0b;
+}
+
+.success-rate-fill.low {
+  background-color: #ef4444;
+}
+
+.success-rate-text {
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 35px;
+}
+
+/* 运动类型标签 */
+.exercise-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.exercise-type-badge.squat {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.exercise-type-badge.bicep-curl {
+  background-color: #fce7f3;
+  color: #be185d;
+}
+
+.exercise-type-badge.other {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+/* 训练摘要样式 */
+.training-summary {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.summary-item .icon {
+  font-size: 14px;
+}
+
+.summary-item .label {
+  color: #9ca3af;
+}
+
+.summary-item .value {
+  font-weight: 500;
+  color: #374151;
+}
+
+/* 运动报告卡片内容 */
+.exercise-report-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.exercise-report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.exercise-report-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.exercise-report-title h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.exercise-report-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.exercise-report-stats {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .reports-tabs {
+    gap: 8px;
+  }
+
+  .tab-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .exercise-report-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .exercise-report-stats {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .training-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .exercise-report-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .success-rate-indicator {
+    width: 100%;
+  }
+
+  .success-rate-bar {
+    flex: 1;
+  }
+}

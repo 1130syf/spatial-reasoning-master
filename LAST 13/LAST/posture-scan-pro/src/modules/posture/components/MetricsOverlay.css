@@ -1,0 +1,141 @@
+.metrics-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.model-container {
+  width: 25%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.model-container.right .human-silhouette {
+  transform: scaleX(-1);
+}
+
+.human-silhouette {
+  width: 40%;
+  max-width: 120px;
+  height: auto;
+}
+
+/* --- NEW: Highlight Style --- */
+.human-silhouette .highlighted {
+  fill: #4f46e5; /* Your brand's primary color */
+  opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.7)); /* Glowing effect */
+  transition: all 0.3s ease;
+}
+
+/* 异常部位红色高亮 */
+.human-silhouette .problem {
+  fill: #ef4444; /* 红色 - 异常 */
+  opacity: 0.9;
+  filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8)); /* 强烈红色光晕 */
+  animation: problem-pulse 1.5s infinite;
+  transition: all 0.3s ease;
+}
+
+/* 异常部位脉冲动画 */
+@keyframes problem-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.8));
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 1));
+    transform: scale(1.05);
+  }
+}
+
+.data-box {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  pointer-events: all;
+  width: 120px;
+  text-align: center;
+}
+
+.data-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.data-label {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* 角度偏差状态颜色编码 - 数据框 */
+.data-box.status-good {
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 8px rgba(16, 185, 129, 0.2);
+}
+
+.data-box.status-warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 2px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 8px rgba(245, 158, 11, 0.2);
+  animation: data-box-pulse-warning 2s infinite;
+}
+
+.data-box.status-bad {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 8px rgba(239, 68, 68, 0.2);
+  animation: data-box-pulse-danger 1.5s infinite;
+}
+
+.data-box.status-good .data-value {
+  color: #10b981;
+}
+
+.data-box.status-warning .data-value {
+  color: #f59e0b;
+}
+
+.data-box.status-bad .data-value {
+  color: #ef4444;
+}
+
+/* 数据框脉冲动画 */
+@keyframes data-box-pulse-warning {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 8px rgba(245, 158, 11, 0.2);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 12px rgba(245, 158, 11, 0.4);
+  }
+}
+
+@keyframes data-box-pulse-danger {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 8px rgba(239, 68, 68, 0.2);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 16px rgba(239, 68, 68, 0.4);
+  }
+}

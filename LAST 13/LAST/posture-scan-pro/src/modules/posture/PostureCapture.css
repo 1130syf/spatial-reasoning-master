@@ -1,0 +1,579 @@
+/* PostureCapture.css */
+
+.kinetisense-posture-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-color: #1A1A1A;
+  color: white;
+  font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 全屏模式 */
+.kinetisense-posture-container.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: #1A1A1A;
+}
+
+/* 主视频区域 - 同时为左右两侧面板腾出空间 */
+.main-video-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  padding-left: 250px; /* 为左侧面板腾出空间 */
+  padding-right: 250px; /* 为右侧面板腾出空间 */
+}
+
+/* 左侧信息面板 */
+.left-info-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-right: 1px solid #333;
+  overflow-y: auto;
+  z-index: 5;
+  color: white;
+}
+
+/* 右侧信息面板样式 */
+.right-info-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-left: 1px solid #333;
+  overflow-y: auto;
+  z-index: 5;
+  color: white;
+}
+
+/* 进度条容器 */
+.progress-bar-container {
+  margin-bottom: 12px;
+}
+
+.progress-bar-label {
+  font-size: 14px;
+  color: #CCCCCC;
+  margin-bottom: 4px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out;
+}
+
+/* 操作指引项 */
+.guide-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 6px 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.guide-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.guide-text {
+  font-size: 13px;
+  color: #E0E0E0;
+  line-height: 1.4;
+}
+
+.info-section {
+  margin-bottom: 20px;
+}
+
+.info-section h3 {
+  color: #2196F3;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.label {
+  color: #CCCCCC;
+}
+
+.value {
+  font-weight: bold;
+}
+
+.value-good {
+  color: #4CAF50;
+}
+
+.value-warning {
+  color: #FFEB3B;
+}
+
+.value-bad {
+  color: #FF5252;
+}
+
+.posture-advice {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #E0E0E0;
+}
+
+.advice-item {
+  margin: 8px 0;
+  padding-left: 15px;
+  position: relative;
+}
+
+.advice-item:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #FF5252;
+}
+
+/* 设置选项 */
+.settings-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.setting-label {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #E0E0E0;
+}
+
+/* 开关样式 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #555;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.slider.round {
+  border-radius: 22px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* 修改canvas区域的样式，使视频填充中央区域 */
+.posture-canvas {
+  background-color: #1A1A1A;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 60px);
+  image-rendering: crisp-edges;
+  position: absolute;
+  top: 0;
+  left: 250px;
+  right: 250px;
+  z-index: 0;
+}
+
+/* 信息面板 */
+.info-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-left: 1px solid #333;
+  overflow-y: auto;
+}
+
+.panel-title {
+  color: #00FF00;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+}
+
+.data-section {
+  margin-bottom: 20px;
+}
+
+.data-section h3 {
+  color: #CCCCCC;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.label {
+  color: #FFFFFF;
+  font-size: 16px;
+}
+
+.value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #00FF00;
+}
+
+/* 工具栏 */
+.toolbar {
+  height: 60px;
+  background-color: #252525;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.tool-group {
+  display: flex;
+  align-items: center;
+}
+
+.tool-group.center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #999;
+  font-size: 14px;
+}
+
+.tool-button {
+  background-color: #333;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.tool-button:hover {
+  background-color: #444;
+}
+
+.tool-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 摄像头按钮样式 */
+.camera-button {
+  background-color: #2196F3;
+}
+
+.camera-button:hover {
+  background-color: #0d8bf2;
+}
+
+.debug-button {
+  background-color: #541B5E;
+}
+
+.debug-button:hover {
+  background-color: #7B2E8A;
+}
+
+.action-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.capture-button {
+  background-color: #00DD00;
+  color: white;
+}
+
+.capture-button:hover {
+  background-color: #00FF00;
+}
+
+.save-button {
+  background-color: #0088CC;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #00AAFF;
+}
+
+.fullscreen-button {
+  background-color: #8800CC;
+  color: white;
+}
+
+.fullscreen-button:hover {
+  background-color: #9900FF;
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 状态指示器和错误消息 */
+.error-message {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 0, 0, 0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.pose-detector-status {
+  position: absolute;
+  top: 10px;
+  right: 260px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.pose-detector-status.active {
+  color: #00FF00;
+}
+
+.pose-detector-status.inactive {
+  color: #FF0000;
+}
+
+/* 加载中和权限消息样式 */
+.loading-message,
+.permission-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  z-index: 100;
+}
+
+.loading-message {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.permission-message {
+  background-color: rgba(255, 0, 0, 0.7);
+  animation: pulse 2s infinite;
+}
+
+/* 添加骨骼点显示效果 */
+.joint-point {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* 数据指标 */
+.data-indicator {
+  position: absolute;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* 警报动画效果 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.alert-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+/* 捕获时的闪烁效果 */
+@keyframes captureFlash {
+  0% { background-color: rgba(255, 0, 0, 0); }
+  50% { background-color: rgba(255, 0, 0, 0.3); }
+  100% { background-color: rgba(255, 0, 0, 0); }
+}
+
+/* 校准数据显示 */
+.calibration-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.calibration-title {
+  font-size: 24px;
+  color: #FFEB3B;
+  margin-bottom: 20px;
+}
+
+.calibration-instructions {
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .info-panel {
+    width: 200px;
+  }
+
+  .pose-detector-status {
+    right: 210px;
+  }
+}
+
+/* 全屏模式下的样式调整 */
+.fullscreen-mode .main-video-area {
+  padding: 0;
+  padding-left: 250px; /* 为左侧面板腾出空间 */
+  padding-right: 250px; /* 为右侧面板腾出空间 */
+}
+
+.fullscreen-mode .pose-detector-status {
+  right: 260px;
+}
+
+/* 连线高亮效果 */
+.skeleton-line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 骨骼点不同颜色 */
+.joint-head { fill: #FF5252; }
+.joint-spine { fill: #FFEB3B; }
+.joint-arm { fill: #4CAF50; }
+.joint-leg { fill: #FF9800; }

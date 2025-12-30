@@ -1,0 +1,164 @@
+.analysis-panel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  max-height: calc(100vh - 120px);
+  background-color: rgba(31, 41, 55, 0.85); /* semi-transparent dark */
+  backdrop-filter: blur(10px);
+  color: #f3f4f6;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4b5563;
+  padding-bottom: 10px;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #34d399; /* Green for active */
+  font-size: 0.9rem;
+}
+
+.no-detection {
+  text-align: center;
+  padding: 40px 20px;
+  color: #fca5a5; /* Light red */
+}
+
+.no-detection p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.no-detection span {
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.panel-section h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #9ca3af;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(55, 65, 81, 0.7);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.metric-label {
+  color: #d1d5db;
+}
+
+.metric-value {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+/* 角度偏差状态颜色编码 */
+.metric-value.value-good {
+  color: #34d399; /* 绿色 - 正常 */
+  background-color: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.metric-value.value-warning {
+  color: #f59e0b; /* 黄色 - 警告 */
+  background-color: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  animation: pulse-warning 2s infinite;
+}
+
+.metric-value.value-bad {
+  color: #ef4444; /* 红色 - 异常 */
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  animation: pulse-danger 1.5s infinite;
+}
+
+.metric-value.value-na {
+  color: #9ca3af; /* 灰色 - 不可用 */
+  opacity: 0.7;
+}
+
+/* 异常指标脉冲动画 */
+@keyframes pulse-warning {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse-danger {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.03);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0);
+  }
+}
+
+.advice-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.advice-list li {
+  background-color: rgba(55, 65, 81, 0.7);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}

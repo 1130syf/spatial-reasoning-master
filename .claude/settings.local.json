@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm --version)",
+      "Bash(npx create-react-app:*)",
+      "Bash(npm run server:*)",
+      "Bash(node_modules/.bin/react-scripts start)",
+      "Bash(npx serve:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(tasklist:*)",
+      "Bash(SET NODE_OPTIONS=--max-old-space-size=4096:*)",
+      "Bash(cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" node node_modules/react-scripts/bin/react-scripts.js:*)",
+      "Bash(curl:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "Bash(cat:*)",
+      "Bash(npm start)",
+      "Bash(mysql:*)",
+      "Bash(npm install:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(dir:*)",
+      "Bash(net start:*)",
+      "Bash(sc query:*)",
+      "Bash(wmic:*)",
+      "Bash(python:*)",
+      "Bash(start \"c:\\\\Users\\\\旧城以西\\\\Desktop\\\\MyFile\\\\LAST\\\\index.html\")",
+      "Bash(start:*)",
+      "Bash(code:*)",
+      "Bash(git --version:*)",
+      "Bash(git init:*)",
+      "Bash(git config:*)",
+      "Bash(git remote add:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

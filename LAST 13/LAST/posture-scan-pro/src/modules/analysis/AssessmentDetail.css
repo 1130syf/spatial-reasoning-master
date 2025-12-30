@@ -1,0 +1,50 @@
+/* Reusing styles from Dashboard.css for consistency */
+@import '../../components/Dashboard.css';
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+}
+
+.screenshot-card h3, .data-card h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+.screenshot-image {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-top: 16px;
+}
+
+.data-section {
+  margin-bottom: 24px;
+}
+
+.data-section h4 {
+  font-size: 1.1rem;
+  color: #4f46e5;
+  margin-bottom: 12px;
+}
+
+.detail-metric-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-metric-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.detail-metric-value {
+  font-weight: 600;
+  color: #111827;
+}

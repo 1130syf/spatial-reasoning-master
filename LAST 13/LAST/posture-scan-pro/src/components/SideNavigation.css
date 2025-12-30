@@ -1,0 +1,127 @@
+.side-navigation {
+  width: 180px;
+  height: 100vh;
+  background: linear-gradient(to bottom, #2c3a47, #3c6382);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav-header {
+  padding: 20px 15px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo span {
+  display: block;
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 5px;
+  color: #dfe6e9;
+  opacity: 0.9;
+}
+
+.nav-menu {
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+  flex: 1;
+}
+
+.nav-menu li {
+  margin: 15px 8px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-menu li.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.nav-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/* 每个菜单项不同的颜色 */
+.personnel-link .nav-icon {
+  color: #74b9ff;
+}
+
+.capture-link .nav-icon {
+  color: #55efc4;
+}
+
+.reports-link .nav-icon {
+  color: #ffeaa7;
+}
+
+.settings-link .nav-icon {
+  color: #a29bfe; /* 紫色调的设置图标 */
+}
+
+.nav-text {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.nav-footer {
+  padding: 12px;
+  text-align: center;
+  font-size: 11px;
+  color: #b2bec3;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .side-navigation {
+    width: 60px;
+  }
+
+  .logo span, .nav-text {
+    display: none;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .nav-icon {
+    margin-right: 0;
+  }
+}

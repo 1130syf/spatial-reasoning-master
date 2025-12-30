@@ -1,0 +1,150 @@
+.hud-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  box-sizing: border-box;
+  pointer-events: none; /* Allow clicks to pass through */
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.top-hud, .bottom-hud {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: auto; /* Re-enable events for child elements */
+}
+
+.bottom-hud {
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* --- Stage Indicator --- */
+.stage-indicator-container {
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.stage-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #9ca3af;
+  transition: color 0.4s ease;
+}
+
+.stage-item.active {
+  color: white;
+  font-weight: 600;
+}
+
+.stage-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #9ca3af;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  transition: background-color 0.4s ease;
+}
+
+.stage-item.active .stage-dot {
+  background-color: #34d399; /* Green for active stage */
+}
+
+.stage-label {
+  font-size: 0.9rem;
+  margin-top: 6px;
+}
+
+.stage-line {
+  height: 2px;
+  width: 50px;
+  background-color: #9ca3af;
+  margin: 0 10px;
+  transform: translateY(-8px);
+  transition: background-color 0.4s ease;
+}
+
+.stage-line.active {
+  background-color: #34d399;
+}
+
+/* --- Count Display --- */
+.count-display {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 15px 25px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.count-display span {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #818cf8;
+}
+
+/* --- Feedback Panel --- */
+.feedback-panel {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  padding: 20px 40px;
+  border-radius: 16px;
+  min-width: 400px;
+  text-align: center;
+}
+
+.live-feedback .angle-readout {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #f59e0b; /* Amber color */
+}
+
+.live-feedback .feedback-text {
+  font-size: 1.2rem;
+  margin-top: 8px;
+}
+
+.analysis-result h4 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+}
+
+.analysis-result p {
+  margin: 4px 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* --- Initializing Overlay --- */
+.initializing-fullscreen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.initializing-fullscreen h1 {
+  font-size: 3rem;
+}
+.initializing-fullscreen p {
+  font-size: 1.5rem;
+  color: #d1d5db;
+}

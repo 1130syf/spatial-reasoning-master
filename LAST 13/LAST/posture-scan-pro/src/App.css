@@ -1,0 +1,20 @@
+/* App.css - Global styles for the application */
+
+/* You can keep any global styles here, but for this redesign, 
+   most of the specific component styles have been moved to HomePage.css.
+   This file can be used for truly global styles or resets. */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5; /* A light grey background for the whole app */
+}
+
+/* Example of a global style you might want */
+a {
+  color: #3f51b5; /* A consistent link color */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

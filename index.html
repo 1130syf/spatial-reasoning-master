@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多面体搭建拼合系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+            padding-top: 60px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .workspace {
+            flex: 1;
+            display: flex;
+            position: relative;
+        }
+
+        .view-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-panel.splitter {
+            border-left: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .view-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #4a5568;
+            z-index: 100;
+            font-size: 14px;
+        }
+
+        .tool-section {
+            margin-bottom: 25px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-section h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .tool-btn {
+            padding: 15px 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 12px;
+            color: #4a5568;
+        }
+
+        .tool-btn:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+
+        .tool-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+        }
+
+        .slider-value {
+            min-width: 30px;
+            text-align: center;
+            color: #4a5568;
+            font-weight: bold;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-danger {
+            background: #fc8181;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #f56565;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #2d3748;
+            box-shadow: 0 0 0 2px white, 0 0 0 4px #2d3748;
+        }
+
+        .object-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #f8f9fa;
+        }
+
+        .object-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 6px;
+            cursor: move;
+            transition: all 0.3s;
+        }
+
+        .object-item:hover {
+            background: #f7fafc;
+            transform: translateX(5px);
+        }
+
+        .object-item.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid #667eea;
+        }
+
+        .object-name {
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .object-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mini-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .mini-btn-edit {
+            background: #4299e1;
+            color: white;
+        }
+
+        .mini-btn-delete {
+            background: #f56565;
+            color: white;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        .mode-btn:hover {
+            background: #f7fafc;
+        }
+
+        .mode-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .instructions {
+            background: #fef5e7;
+            border: 1px solid #f9e79f;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #7e5109;
+        }
+
+        .instructions h4 {
+            color: #d68910;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin: 3px 0;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .coordinates {
+            font-family: monospace;
+            background: #f7fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .separator {
+            width: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: col-resize;
+            position: relative;
+        }
+
+        .separator:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+
+        .grid-size-selector {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .grid-size-btn {
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .grid-size-btn:hover {
+            background: #f7fafc;
+            border-color: #667eea;
+        }
+
+        .grid-size-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        /* 添加2D网格的样式 */
+        .grid-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        #buildCanvas {
+            background: white;
+        }
+
+        .cube-element {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 4px;
+            transform-style: preserve-3d;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .cube-element:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🧊 多面体搭建拼合系统</div>
+        <div class="header-controls">
+            <button class="btn btn-primary" onclick="saveProject()">💾 保存项目</button>
+            <button class="btn btn-secondary" onclick="loadProject()">📁 加载项目</button>
+            <button class="btn btn-secondary" onclick="exportModel()">📤 导出模型</button>
+            <button class="btn btn-secondary" onclick="showHelp()">❓ 帮助</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="tool-section">
+                <h3>🎯 工作模式</h3>
+                <div class="mode-selector">
+                    <div class="mode-btn active" onclick="setMode('build')">搭建</div>
+                    <div class="mode-btn" onclick="setMode('assemble')">拼合</div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h4>📖 使用说明</h4>
+                <ul>
+                    <li><strong>搭建:</strong> 点击网格添加方块</li>
+                    <li><strong>360度旋转:</strong> 右键拖动旋转视角</li>
+                    <li><strong>缩放:</strong> 鼠标滚轮</li>
+                    <li><strong>平移:</strong> 空格键+左键拖动</li>
+                    <li><strong>重置:</strong> 空格+R 或点击按钮</li>
+                </ul>
+            </div>
+
+            <div class="tool-section" id="buildTools">
+                <h3>🔧 建造工具</h3>
+                <div class="tool-grid">
+                    <div class="tool-btn active" onclick="setTool('cube')">
+                        <div>⬜</div>
+                        <div>方块</div>
+                    </div>
+                    <div class="tool-btn" onclick="setTool('erase')">
+                        <div>🗑️</div>
+                        <div>擦除</div>
+                    </div>
+                    <div class="tool-btn" onclick="setTool('paint')">
+                        <div>🎨</div>
+                        <div>涂色</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>🎨 颜色选择</h3>
+                <div class="color-palette">
+                    <div class="color-option selected" style="background: #ff6b6b" onclick="setColor('#ff6b6b')"></div>
+                    <div class="color-option" style="background: #4ecdc4" onclick="setColor('#4ecdc4')"></div>
+                    <div class="color-option" style="background: #45b7d1" onclick="setColor('#45b7d1')"></div>
+                    <div class="color-option" style="background: #f7dc6f" onclick="setColor('#f7dc6f')"></div>
+                    <div class="color-option" style="background: #bb8fce" onclick="setColor('#bb8fce')"></div>
+                    <div class="color-option" style="background: #85c88a" onclick="setColor('#85c88a')"></div>
+                    <div class="color-option" style="background: #f8b739" onclick="setColor('#f8b739')"></div>
+                    <div class="color-option" style="background: #ec7063" onclick="setColor('#ec7063')"></div>
+                    <div class="color-option" style="background: #a569bd" onclick="setColor('#a569bd')"></div>
+                    <div class="color-option" style="background: #5dade2" onclick="setColor('#5dade2')"></div>
+                    <div class="color-option" style="background: #48c9b0" onclick="setColor('#48c9b0')"></div>
+                    <div class="color-option" style="background: #95a5a6" onclick="setColor('#95a5a6')"></div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>📏 网格设置</h3>
+                <div class="control-group">
+                    <label>网格大小</label>
+                    <div class="grid-size-selector">
+                        <div class="grid-size-btn" onclick="setGridSize(5)">5x5</div>
+                        <div class="grid-size-btn active" onclick="setGridSize(10)">10x10</div>
+                        <div class="grid-size-btn" onclick="setGridSize(15)">15x15</div>
+                        <div class="grid-size-btn" onclick="setGridSize(20)">20x20</div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>视图控制</label>
+                    <button class="btn btn-secondary" onclick="resetView()">🔄 重置视图</button>
+                </div>
+                <div class="control-group">
+                    <label>网格高度</label>
+                    <div class="slider-container">
+                        <input type="range" class="slider" id="gridHeight" min="1" max="10" value="5" onchange="updateGridHeight()">
+                        <span class="slider-value" id="gridHeightValue">5</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>显示网格</label>
+                    <div class="slider-container">
+                        <input type="checkbox" id="showGrid" checked onchange="toggleGrid()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <h3>📦 我的多面体</h3>
+                <div class="object-list" id="objectList">
+                    <div style="text-align: center; color: #999; padding: 20px;">
+                        暂无多面体
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="createNewObject()">➕ 新建多面体</button>
+                <button class="btn btn-secondary" onclick="duplicateSelected()">📋 复制选中</button>
+                <button class="btn btn-danger" onclick="clearWorkspace()">🗑️ 清空工作区</button>
+            </div>
+        </aside>
+
+        <div class="workspace">
+            <div class="view-panel" id="buildPanel">
+                <div class="view-label">搭建工作区</div>
+                <canvas id="buildCanvas" class="grid-canvas"></canvas>
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="view-panel splitter" id="assemblePanel">
+                <div class="view-label">拼合工作区</div>
+                <canvas id="assembleCanvas" class="grid-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div class="coordinates" id="coordinates">X: 0, Y: 0, Z: 0</div>
+        <div id="statusText">准备就绪</div>
+        <div id="spaceStatus" style="color: #667eea; font-weight: bold; display: none;">✋ 空格键按下 - 可拖动画布</div>
+        <div id="objectCount">对象: 0 | 方块: 0</div>
+    </div>
+
+    <script src="app2d.js"></script>
+</body>
+</html>

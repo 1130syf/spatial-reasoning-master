@@ -1,0 +1,117 @@
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.welcome-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.welcome-content .highlight {
+  color: #4f46e5;
+}
+
+.welcome-image-container {
+  margin: 32px auto;
+  max-width: 600px;
+}
+
+.placeholder-image {
+  background-color: #eef2ff;
+  border-radius: 16px;
+  padding: 40px;
+  color: #4338ca;
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.placeholder-image h2 {
+  margin: 16px 0 8px 0;
+  font-size: 1.8rem;
+}
+
+.placeholder-image p {
+  margin: 0;
+  font-size: 1rem;
+  color: #6366f1;
+}
+
+.welcome-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  max-width: 900px; /* Adjust max-width for three items */
+  margin: 40px auto 0;
+}
+
+/* NEW: Style for two items to be centered */
+.welcome-features.two-items {
+  max-width: 650px; /* Adjust max-width for two items */
+}
+
+.feature-item {
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.personnel-icon { background-color: #3b82f6; }
+.capture-icon { background-color: #10b981; }
+.reports-icon { background-color: #f59e0b; }
+
+.feature-item h3 {
+  font-size: 1.5rem;
+  margin: 0 0 8px 0;
+  color: #1f2937;
+}
+
+.feature-item p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  flex-grow: 1;
+  margin-bottom: 24px;
+}
+
+.feature-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.feature-btn:hover {
+  opacity: 0.85;
+}
+
+.personnel-btn { background-color: #3b82f6; color: white; }
+.capture-btn { background-color: #10b981; color: white; }
+.reports-btn { background-color: #f59e0b; color: white; }

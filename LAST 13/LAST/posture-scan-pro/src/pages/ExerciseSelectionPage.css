@@ -1,0 +1,78 @@
+/* Reusing styles from Dashboard.css for consistency */
+@import '../components/Dashboard.css';
+
+.page-header p {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  color: #6b7280;
+}
+
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.exercise-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+}
+
+.exercise-card.disabled {
+  cursor: not-allowed;
+  background-color: #f9fafb;
+  color: #9ca3af;
+}
+
+.exercise-card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.exercise-card-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.exercise-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.exercise-card.disabled .exercise-card-title {
+  color: #9ca3af;
+}
+
+.exercise-card-description {
+  font-size: 0.95rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.coming-soon-badge {
+  position: absolute;
+  top: 10px;
+  right: -40px;
+  background-color: #fbbf24;
+  color: #92400e;
+  padding: 4px 40px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: rotate(45deg);
+}
