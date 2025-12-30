@@ -41,24 +41,33 @@ spatial-reasoning-master/
 
 - [x] 项目规划与 PRD 编写
 - [x] GitHub 仓库创建
-- [ ] 项目框架搭建
-- [ ] 3D 渲染功能
-- [ ] 动画演示系统
-- [ ] 多视角切换
+- [x] 项目框架搭建
+- [x] 3D 渲染功能
+- [x] 动画演示系统
+- [x] 多视角切换
 - [ ] 题库系统（后续）
 
 ## 快速开始
 
-```bash
-# 安装依赖
-npm install
+⚠️ **如果遇到 npm 权限问题，请查看 [安装指南](INSTALL_GUIDE.md)**
 
-# 启动开发服务器
+```bash
+# 方法 1: 使用 npm
+npm install
 npm run dev
 
-# 构建生产版本
-npm run build
+# 方法 2: 使用 pnpm（推荐，避免权限问题）
+npm install -g pnpm
+pnpm install
+pnpm dev
+
+# 方法 3: 在线运行（无需安装）
+# 访问 https://stackblitz.com/ 导入 GitHub 仓库
 ```
+
+安装成功后，访问: http://localhost:3000
+
+详细安装说明请查看: [INSTALL_GUIDE.md](INSTALL_GUIDE.md)
 
 ## 演示题目
 
